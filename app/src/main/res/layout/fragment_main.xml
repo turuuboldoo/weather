@@ -21,6 +21,7 @@
             android:id="@+id/mTextViewTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_10dp"
             android:padding="@dimen/margin_16dp"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +81,7 @@
                 android:layout_height="@dimen/margin_24dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                tools:src="@drawable/ic_pressure" />
+                android:src="@drawable/ic_pressure" />
 
             <TextView
                 android:id="@+id/mTextViewPressure"
@@ -110,7 +111,7 @@
                 android:layout_height="@dimen/margin_24dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                tools:src="@drawable/ic_drop" />
+                android:src="@drawable/ic_drop" />
 
             <TextView
                 android:id="@+id/mTextViewHumidity"
@@ -139,7 +140,7 @@
                 android:layout_height="@dimen/margin_24dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                tools:src="@drawable/ic_wind" />
+                android:src="@drawable/ic_wind" />
 
             <TextView
                 android:id="@+id/mTextViewWind"
