@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="today">Today</string>
+
+    <!--messages-->
+    <string name="no_internet">Please check your connection!</string>
+</resources>
