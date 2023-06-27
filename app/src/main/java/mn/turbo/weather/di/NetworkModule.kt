@@ -19,7 +19,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMarvelApi(
+    fun provideWeatherApi(
         okHttpClient: OkHttpClient
     ): WeatherApi {
         return Retrofit

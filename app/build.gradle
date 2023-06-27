@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'androidx.navigation.safeargs.kotlin'
-//    id "org.jlleitschuh.gradle.ktlint" version "11.0.0"
 }
 
 android {
@@ -45,17 +44,6 @@ android {
         viewBinding true
     }
 }
-
-//tasks.getByPath("preBuild").dependsOn("ktlintFormat")
-
-//ktlint {
-//    android = true
-//    ignoreFailures = false
-//    disabledRules = ["no-wildcard-imports", "max-line-length"]
-//    reporters {
-//        reporter "checkstyle"
-//    }
-//}
 
 dependencies {
     // location

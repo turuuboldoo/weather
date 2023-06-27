@@ -27,8 +27,6 @@ class MainFragment : Fragment() {
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
-    private lateinit var hourlyAdapter: HourlyAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         permissionLauncher = registerForActivityResult(
@@ -68,7 +66,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        hourlyAdapter = HourlyAdapter()
+        val hourlyAdapter = HourlyAdapter()
 
         collectLatestLifecycleFlow(viewModel.weatherInfoState) { uiState ->
             if (!uiState.isLoading) {
@@ -88,15 +86,31 @@ class MainFragment : Fragment() {
                 )
 
                 mTextViewDesc.text = uiState.data?.currentWeatherData?.weatherType?.weatherDesc
-                mTextViewTime.text = "Today " + uiState.data?.currentWeatherData?.getFormattedTime()
+                mTextViewTime.text =
+                    String.format(
+                        "Today %s",
+                        uiState.data?.currentWeatherData?.getFormattedTime() ?: ""
+                    )
                 mTextViewTemperature.text =
-                    "${uiState.data?.currentWeatherData?.temperatureCelsius}°C"
+                    String.format(
+                        "%.2f°C",
+                        uiState.data?.currentWeatherData?.temperatureCelsius ?: 0.0
+                    )
                 mTextViewPressure.text =
-                    "${uiState.data?.currentWeatherData?.pressure?.roundToInt()}"
+                    String.format(
+                        "%d",
+                        uiState.data?.currentWeatherData?.pressure?.roundToInt() ?: 0
+                    )
                 mTextViewHumidity.text =
-                    "${uiState.data?.currentWeatherData?.humidity?.roundToInt()}"
+                    String.format(
+                        "%d",
+                        uiState.data?.currentWeatherData?.humidity?.roundToInt() ?: 0
+                    )
                 mTextViewWind.text =
-                    "${uiState.data?.currentWeatherData?.windSpeed?.roundToInt()}"
+                    String.format(
+                        "%d",
+                        uiState.data?.currentWeatherData?.windSpeed?.roundToInt() ?: 0
+                    )
             }
 
             hourlyAdapter.submitList(uiState.data?.weatherDataPerDay?.get(0))
