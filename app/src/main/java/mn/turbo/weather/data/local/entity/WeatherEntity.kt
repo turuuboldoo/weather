@@ -1,8 +1,11 @@
-package mn.turbo.weather.data.remote.dto
+package mn.turbo.weather.data.local.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class WeatherDataDto(
+@Entity("weather")
+data class WeatherEntity(
     @SerializedName("time")
     val time: List<String>,
 
@@ -19,5 +22,8 @@ data class WeatherDataDto(
     val windSpeeds: List<Double>,
 
     @SerializedName("relativehumidity_2m")
-    val humidities: List<Double>
+    val humidities: List<Double>,
+
+    @PrimaryKey(autoGenerate = true)
+    val id: Int?
 )

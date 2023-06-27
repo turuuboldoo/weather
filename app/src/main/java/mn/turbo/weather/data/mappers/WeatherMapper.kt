@@ -1,5 +1,6 @@
 package mn.turbo.weather.data.mappers
 
+import mn.turbo.weather.data.local.entity.WeatherEntity
 import mn.turbo.weather.data.remote.dto.WeatherDataDto
 import mn.turbo.weather.data.remote.dto.WeatherDto
 import mn.turbo.weather.domain.weather.WeatherData
@@ -39,7 +40,7 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
     }
 }
 
-fun WeatherDto.toWeatherINfo(): WeatherInfo {
+fun WeatherDto.toWeatherInfo(): WeatherInfo {
     val weatherDataMap = weatherData.toWeatherDataMap()
     val now = LocalDateTime.now()
     val currentWeatherData = weatherDataMap[0]?.find {
@@ -50,5 +51,30 @@ fun WeatherDto.toWeatherINfo(): WeatherInfo {
     return WeatherInfo(
         weatherDataPerDay = weatherDataMap,
         currentWeatherData = currentWeatherData
+    )
+}
+
+fun WeatherDataDto.toWeatherEntity(): WeatherEntity {
+    return WeatherEntity(
+        time = time,
+        temperatures = temperatures,
+        weatherCodes = weatherCodes,
+        pressures = pressures,
+        windSpeeds = windSpeeds,
+        humidities = humidities,
+        id = null
+    )
+}
+
+fun WeatherEntity.toWeatherDto(): WeatherDto {
+    return WeatherDto(
+        weatherData = WeatherDataDto(
+            time = time,
+            temperatures = temperatures,
+            weatherCodes = weatherCodes,
+            pressures = pressures,
+            windSpeeds = windSpeeds,
+            humidities = humidities
+        )
     )
 }
