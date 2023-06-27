@@ -1,196 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mSwipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background">
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mLayoutWeatherCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_20dp"
-        android:background="@drawable/background_card"
-        android:paddingBottom="@dimen/margin_20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_background">
 
-        <TextView
-            android:id="@+id/mTextViewTime"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mLayoutWeatherCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_10dp"
-            android:padding="@dimen/margin_16dp"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Today 15:00" />
-
-        <ImageView
-            android:id="@+id/mImageViewStatus"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null"
+            android:layout_margin="@dimen/margin_20dp"
+            android:background="@drawable/background_card"
+            android:paddingBottom="@dimen/margin_20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mTextViewTime"
-            tools:src="@drawable/ic_cloudy" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/mTextViewTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_10dp"
+                android:padding="@dimen/margin_16dp"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Today 15:00" />
+
+            <ImageView
+                android:id="@+id/mImageViewStatus"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTextViewTime"
+                tools:src="@drawable/ic_cloudy" />
+
+            <TextView
+                android:id="@+id/mTextViewTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_40sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mImageViewStatus"
+                tools:text="31.7 C" />
+
+            <TextView
+                android:id="@+id/mTextViewDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mTextViewTemperature"
+                tools:text="Overcast" />
+
+            <LinearLayout
+                android:id="@+id/mLayoutPressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/mLayoutHumidity"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/mLayoutHumidity"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="@dimen/margin_24dp"
+                    android:layout_height="@dimen/margin_24dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_pressure" />
+
+                <TextView
+                    android:id="@+id/mTextViewPressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_4dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16sp"
+                    tools:text="1014hpa" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mLayoutHumidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_30dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTextViewDesc"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="@dimen/margin_24dp"
+                    android:layout_height="@dimen/margin_24dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_drop" />
+
+                <TextView
+                    android:id="@+id/mTextViewHumidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_4dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16sp"
+                    tools:text="30%" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mLayoutWind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mLayoutHumidity"
+                app:layout_constraintTop_toTopOf="@+id/mLayoutHumidity"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="@dimen/margin_24dp"
+                    android:layout_height="@dimen/margin_24dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_wind" />
+
+                <TextView
+                    android:id="@+id/mTextViewWind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_4dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_16sp"
+                    tools:text="30%" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/mTextViewTemperature"
+            android:id="@+id/mTextViewToday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12dp"
+            android:layout_marginStart="@dimen/margin_26dp"
+            android:layout_marginTop="@dimen/margin_26dp"
+            android:text="@string/today"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_40sp"
+            android:textSize="@dimen/text_size_18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mImageViewStatus"
-            tools:text="31.7 C" />
+            app:layout_constraintTop_toBottomOf="@+id/mLayoutWeatherCard" />
 
-        <TextView
-            android:id="@+id/mTextViewDesc"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mRecyclerView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mTextViewTemperature"
-            tools:text="Overcast" />
-
-        <LinearLayout
-            android:id="@+id/mLayoutPressure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toStartOf="@+id/mLayoutHumidity"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/mLayoutHumidity"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="@dimen/margin_24dp"
-                android:layout_height="@dimen/margin_24dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_pressure" />
-
-            <TextView
-                android:id="@+id/mTextViewPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_4dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16sp"
-                tools:text="1014hpa" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/mLayoutHumidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_30dp"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:paddingStart="@dimen/margin_26dp"
+            android:paddingEnd="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mTextViewDesc"
-            tools:ignore="UseCompoundDrawables">
+            app:layout_constraintTop_toBottomOf="@+id/mTextViewToday"
+            tools:listitem="@layout/item_hourly" />
 
-            <ImageView
-                android:layout_width="@dimen/margin_24dp"
-                android:layout_height="@dimen/margin_24dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_drop" />
-
-            <TextView
-                android:id="@+id/mTextViewHumidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_4dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16sp"
-                tools:text="30%" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/mLayoutWind"
+        <ProgressBar
+            android:id="@+id/mProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mLayoutHumidity"
-            app:layout_constraintTop_toTopOf="@+id/mLayoutHumidity"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="@dimen/margin_24dp"
-                android:layout_height="@dimen/margin_24dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_wind" />
-
-            <TextView
-                android:id="@+id/mTextViewWind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_4dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16sp"
-                tools:text="30%" />
-
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/mTextViewToday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_26dp"
-        android:layout_marginTop="@dimen/margin_26dp"
-        android:text="@string/today"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mLayoutWeatherCard" />
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_12dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/margin_26dp"
-        android:paddingEnd="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mTextViewToday"
-        tools:listitem="@layout/item_hourly" />
 
-    <ProgressBar
-        android:id="@+id/mProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>

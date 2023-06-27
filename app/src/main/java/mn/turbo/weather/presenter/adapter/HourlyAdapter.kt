@@ -47,6 +47,5 @@ private val weatherDataDiffUtil = object : DiffUtil.ItemCallback<WeatherData>() 
         oldItem == newItem
 
     override fun areContentsTheSame(oldItem: WeatherData, newItem: WeatherData) =
-        oldItem.time == newItem.time
-
+        oldItem.time.minute == newItem.time.minute
 }

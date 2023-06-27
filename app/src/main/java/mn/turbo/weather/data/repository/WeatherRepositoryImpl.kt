@@ -21,12 +21,13 @@ class WeatherRepositoryImpl @Inject constructor(
 
     override suspend fun getWeatherData(
         lat: Double,
-        long: Double
+        long: Double,
+        isRefresh: Boolean,
     ): Resource<WeatherInfo> {
         return try {
-            val weatherDto = dao.select()?.toWeatherDto()
+            val weatherEntityList = dao.select()
 
-            if (weatherDto == null) {
+            if (weatherEntityList.isNullOrEmpty() || isRefresh) {
                 val result = api.getWeather(lat = lat, long = long)
 
                 withContext(ioDispatcher) {
@@ -38,7 +39,10 @@ class WeatherRepositoryImpl @Inject constructor(
                 )
             } else {
                 Resource.Success(
-                    data = weatherDto.toWeatherInfo()
+                    data = weatherEntityList
+                        .last()
+                        .toWeatherDto()
+                        .toWeatherInfo()
                 )
             }
         } catch (e: Exception) {

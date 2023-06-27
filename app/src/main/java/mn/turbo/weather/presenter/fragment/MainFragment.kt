@@ -70,7 +70,10 @@ class MainFragment : Fragment() {
 
         collectLatestLifecycleFlow(viewModel.weatherInfoState) { uiState ->
             if (!uiState.isLoading) {
-                binding.mProgressBar.visibility = View.GONE
+                binding.run {
+                    mProgressBar.visibility = View.GONE
+                    mSwipeRefreshLayout.isRefreshing = false
+                }
             }
 
             binding.apply {
@@ -114,6 +117,12 @@ class MainFragment : Fragment() {
             }
 
             hourlyAdapter.submitList(uiState.data?.weatherDataPerDay?.get(0))
+        }
+
+        binding.mSwipeRefreshLayout.run {
+            setOnRefreshListener {
+                viewModel.loadWeatherInfo(true)
+            }
         }
     }
 }

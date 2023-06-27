@@ -22,32 +22,43 @@ class WeatherViewModel @Inject constructor(
     private var _weatherInfoState = MutableStateFlow(UiState<WeatherInfo>(isLoading = true))
     val weatherInfoState = _weatherInfoState.asStateFlow()
 
-    fun loadWeatherInfo() =
+    fun loadWeatherInfo(isRefresh: Boolean = false) =
         viewModelScope.launch {
+            _weatherInfoState.value = UiState(
+                isLoading = true,
+                data = null,
+            )
+
             locationTracker.getCurrentLocation()?.let { location ->
                 when (val result =
-                    repository.getWeatherData(location.latitude, location.longitude)) {
+                    repository.getWeatherData(location.latitude, location.longitude, isRefresh)) {
                     is Resource.Success -> {
                         _weatherInfoState.value = UiState(
-                            data = result.data
+                            data = result.data,
+                            isLoading = false,
                         )
                     }
 
                     is Resource.Loading -> {
-                        _weatherInfoState.value = UiState(isLoading = true)
+                        _weatherInfoState.value = UiState(
+                            isLoading = true,
+                            data = null,
+                        )
                     }
 
                     is Resource.Error -> {
                         _weatherInfoState.value = UiState(
                             isLoading = false,
-                            error = result.message ?: "Something goes wrong"
+                            error = result.message ?: "Something goes wrong",
+                            data = null
                         )
                     }
                 }
             } ?: kotlin.run {
                 _weatherInfoState.value = UiState(
                     isLoading = false,
-                    error = "Something goes wrong"
+                    error = "Something goes wrong",
+                    data = null,
                 )
             }
         }
