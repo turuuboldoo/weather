@@ -3,5 +3,7 @@
     <string name="today">Today</string>
 
     <!--messages-->
+    <string name="ok">OK</string>
     <string name="no_internet">Please check your connection!</string>
+    <string name="gps_warning">Your location GPS is OFF! Turn it on NOW!</string>
 </resources>

@@ -1,10 +1,13 @@
 package mn.turbo.weather.di
 
+import android.app.Application
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import mn.turbo.weather.common.ConnectivityObserver
 import mn.turbo.weather.common.Constant
+import mn.turbo.weather.common.NetworkConnectionObserver
 import mn.turbo.weather.data.remote.WeatherApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -47,5 +50,13 @@ object NetworkModule {
                 )
             }
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNetworkConnection(
+        application: Application
+    ): ConnectivityObserver {
+        return NetworkConnectionObserver(application.applicationContext)
     }
 }

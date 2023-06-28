@@ -1,21 +1,35 @@
 package mn.turbo.weather.di
 
-import dagger.Binds
+import android.app.Application
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import mn.turbo.weather.data.local.dao.WeatherDao
+import mn.turbo.weather.data.remote.WeatherApi
 import mn.turbo.weather.data.repository.WeatherRepositoryImpl
 import mn.turbo.weather.domain.repository.WeatherRepository
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+object RepositoryModule {
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindWeatherRepository(
-        weatherRepositoryImpl: WeatherRepositoryImpl
-    ): WeatherRepository
+    fun bindWeatherRepository(
+        application: Application,
+        dao: WeatherDao,
+        api: WeatherApi,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
+    ): WeatherRepository {
+        return WeatherRepositoryImpl(
+            application,
+            api,
+            dao,
+            ioDispatcher,
+        )
+    }
 
 }

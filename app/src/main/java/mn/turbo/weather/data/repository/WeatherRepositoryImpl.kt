@@ -1,5 +1,7 @@
 package mn.turbo.weather.data.repository
 
+import android.content.Context
+import android.net.ConnectivityManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import mn.turbo.weather.common.Resource
@@ -14,20 +16,18 @@ import mn.turbo.weather.domain.weather.WeatherInfo
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
+    private val context: Context,
     private val api: WeatherApi,
     private val dao: WeatherDao,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : WeatherRepository {
 
     override suspend fun getWeatherData(
         lat: Double,
         long: Double,
-        isRefresh: Boolean,
     ): Resource<WeatherInfo> {
         return try {
-            val weatherEntityList = dao.select()
-
-            if (weatherEntityList.isNullOrEmpty() || isRefresh) {
+            if (isNetworkAvailable(context)) {
                 val result = api.getWeather(lat = lat, long = long)
 
                 withContext(ioDispatcher) {
@@ -39,7 +39,7 @@ class WeatherRepositoryImpl @Inject constructor(
                 )
             } else {
                 Resource.Success(
-                    data = weatherEntityList
+                    data = dao.select()
                         .last()
                         .toWeatherDto()
                         .toWeatherInfo()
@@ -51,4 +51,10 @@ class WeatherRepositoryImpl @Inject constructor(
         }
     }
 
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val activeNetworkInfo = connectivityManager?.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
 }

@@ -22,7 +22,7 @@ class WeatherViewModel @Inject constructor(
     private var _weatherInfoState = MutableStateFlow(UiState<WeatherInfo>(isLoading = true))
     val weatherInfoState = _weatherInfoState.asStateFlow()
 
-    fun loadWeatherInfo(isRefresh: Boolean = false) =
+    fun loadWeatherInfo() =
         viewModelScope.launch {
             _weatherInfoState.value = UiState(
                 isLoading = true,
@@ -31,7 +31,7 @@ class WeatherViewModel @Inject constructor(
 
             locationTracker.getCurrentLocation()?.let { location ->
                 when (val result =
-                    repository.getWeatherData(location.latitude, location.longitude, isRefresh)) {
+                    repository.getWeatherData(location.latitude, location.longitude)) {
                     is Resource.Success -> {
                         _weatherInfoState.value = UiState(
                             data = result.data,
